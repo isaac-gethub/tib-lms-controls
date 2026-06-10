@@ -1,0 +1,2478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SAP Controls &amp; Compliance Training Programme | TIB Systems Inc.</title>
+  <link rel="stylesheet" href="design-system.css" />
+
+  <!-- ============================================================
+       PAGE-LEVEL STYLES
+       ============================================================ -->
+  <style>
+
+    /* ─── Reset & base for this page ─── */
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg-canvas);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ─── HERO SECTION ─── */
+    .hero {
+      position: relative;
+      background: linear-gradient(
+        148deg,
+        var(--navy-deep)   0%,
+        var(--navy)        38%,
+        #1a4a6e            65%,
+        var(--teal-deep)   100%
+      );
+      padding: 0;
+      overflow: hidden;
+      min-height: 600px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Layered atmospheric rings */
+    .hero__rings {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .hero__ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .hero__ring--1 {
+      width: 900px; height: 900px;
+      top: -400px; right: -200px;
+      background: radial-gradient(circle, rgba(31,122,140,0.12) 0%, transparent 70%);
+      border-color: rgba(31,122,140,0.10);
+    }
+
+    .hero__ring--2 {
+      width: 600px; height: 600px;
+      top: -100px; right: 50px;
+      border-color: rgba(31,122,140,0.08);
+    }
+
+    .hero__ring--3 {
+      width: 300px; height: 300px;
+      bottom: -80px; left: -60px;
+      background: radial-gradient(circle, rgba(198,89,17,0.10) 0%, transparent 70%);
+      border-color: rgba(198,89,17,0.08);
+    }
+
+    /* Diagonal grid overlay */
+    .hero__grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 56px 56px;
+      pointer-events: none;
+      z-index: 0;
+      mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.4) 40%, transparent 100%);
+    }
+
+    /* Bottom edge fade */
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 120px;
+      background: linear-gradient(to bottom, transparent, var(--bg-canvas));
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* ─── SITE HEADER (inside hero) ─── */
+    .site-header {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-5) var(--space-10);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .site-header__logo {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      text-decoration: none;
+    }
+
+    .site-header__mark {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-mid) 100%);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--white);
+      box-shadow: 0 3px 12px rgba(31,122,140,0.45);
+      flex-shrink: 0;
+    }
+
+    .site-header__brand {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .site-header__name {
+      font-family: var(--font-display);
+      font-size: var(--scale-base);
+      color: var(--white);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+    }
+
+    .site-header__sub {
+      font-size: var(--scale-2xs);
+      color: rgba(255,255,255,0.45);
+      letter-spacing: var(--tracking-wide);
+      text-transform: uppercase;
+    }
+
+    .site-header__nav {
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+    }
+
+    .site-header__nav-link {
+      font-size: var(--scale-sm);
+      color: rgba(255,255,255,0.60);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      font-weight: 500;
+      transition: color var(--transition-base);
+    }
+
+    .site-header__nav-link:hover {
+      color: var(--white);
+    }
+
+    /* ─── HERO INNER ─── */
+    .hero__inner {
+      position: relative;
+      z-index: 3;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: var(--space-16) var(--space-8) var(--space-20);
+    }
+
+    .hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-3);
+      background: rgba(31,122,140,0.18);
+      border: 1px solid rgba(31,122,140,0.35);
+      border-radius: var(--radius-pill);
+      padding: 5px 16px 5px 10px;
+      margin-bottom: var(--space-6);
+      animation: fadeDown 600ms ease both;
+    }
+
+    .hero__eyebrow-dot {
+      width: 7px; height: 7px;
+      background: var(--teal-light);
+      border-radius: 50%;
+      animation: pulse 2.5s infinite;
+    }
+
+    .hero__eyebrow-text {
+      font-size: var(--scale-xs);
+      font-weight: 600;
+      letter-spacing: var(--tracking-caps);
+      text-transform: uppercase;
+      color: var(--teal-light);
+    }
+
+    .hero__headline {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      max-width: 800px;
+      margin-bottom: var(--space-3);
+      animation: fadeDown 650ms 80ms ease both;
+    }
+
+    .hero__headline-accent {
+      color: var(--teal-light);
+      font-style: italic;
+    }
+
+    .hero__tagline {
+      font-size: var(--scale-lg);
+      color: rgba(255,255,255,0.60);
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      margin-bottom: var(--space-10);
+      animation: fadeDown 680ms 150ms ease both;
+    }
+
+    /* ─── LEARNER NAME PANEL ─── */
+    .learner-panel {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-2xl);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: var(--space-6) var(--space-8);
+      width: 100%;
+      max-width: 520px;
+      margin-bottom: var(--space-10);
+      animation: fadeDown 720ms 230ms ease both;
+    }
+
+    .learner-panel__label {
+      font-size: var(--scale-xs);
+      font-weight: 700;
+      letter-spacing: var(--tracking-caps);
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.50);
+      margin-bottom: var(--space-3);
+      display: block;
+      text-align: left;
+    }
+
+    .learner-panel__row {
+      display: flex;
+      gap: var(--space-3);
+      align-items: stretch;
+    }
+
+    .learner-panel__input {
+      flex: 1;
+      background: rgba(255,255,255,0.10);
+      border: 2px solid rgba(255,255,255,0.15);
+      border-radius: var(--radius-lg);
+      padding: 0.7rem 1.1rem;
+      font-family: var(--font-body);
+      font-size: var(--scale-base);
+      color: var(--white);
+      outline: none;
+      transition: border-color var(--transition-base), background var(--transition-base);
+    }
+
+    .learner-panel__input::placeholder {
+      color: rgba(255,255,255,0.35);
+    }
+
+    .learner-panel__input:focus {
+      border-color: var(--teal-light);
+      background: rgba(255,255,255,0.14);
+    }
+
+    .learner-panel__btn {
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-mid) 100%);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius-lg);
+      padding: 0 var(--space-5);
+      font-family: var(--font-body);
+      font-size: var(--scale-sm);
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      box-shadow: 0 3px 12px rgba(31,122,140,0.40);
+      transition: all var(--transition-base);
+      letter-spacing: 0.01em;
+    }
+
+    .learner-panel__btn:hover {
+      background: linear-gradient(135deg, var(--teal-deep) 0%, var(--teal) 100%);
+      box-shadow: var(--shadow-teal);
+      transform: translateY(-1px);
+    }
+
+    .learner-panel__greeting {
+      display: none;
+      align-items: center;
+      gap: var(--space-3);
+      text-align: left;
+    }
+
+    .learner-panel__greeting.visible {
+      display: flex;
+    }
+
+    .learner-panel__avatar {
+      width: 46px;
+      height: 46px;
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-mid) 100%);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: var(--white);
+      font-weight: 700;
+      flex-shrink: 0;
+      box-shadow: 0 3px 12px rgba(31,122,140,0.40);
+    }
+
+    .learner-panel__greeting-text {}
+
+    .learner-panel__greeting-name {
+      font-family: var(--font-display);
+      font-size: var(--scale-lg);
+      color: var(--white);
+      line-height: 1.2;
+    }
+
+    .learner-panel__greeting-sub {
+      font-size: var(--scale-xs);
+      color: rgba(255,255,255,0.50);
+      letter-spacing: 0.02em;
+    }
+
+    .learner-panel__change-btn {
+      margin-left: auto;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: var(--radius-md);
+      padding: 3px 10px;
+      font-size: var(--scale-xs);
+      color: rgba(255,255,255,0.45);
+      cursor: pointer;
+      font-family: var(--font-body);
+      transition: all var(--transition-base);
+    }
+
+    .learner-panel__change-btn:hover {
+      border-color: rgba(255,255,255,0.35);
+      color: rgba(255,255,255,0.70);
+    }
+
+    /* ─── HERO STATS ─── */
+    .hero__stats {
+      display: flex;
+      gap: var(--space-8);
+      animation: fadeDown 750ms 300ms ease both;
+    }
+
+    .hero__stat {
+      text-align: center;
+    }
+
+    .hero__stat-value {
+      font-family: var(--font-mono);
+      font-size: var(--scale-2xl);
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1;
+      display: block;
+    }
+
+    .hero__stat-label {
+      font-size: var(--scale-xs);
+      color: rgba(255,255,255,0.40);
+      letter-spacing: var(--tracking-caps);
+      text-transform: uppercase;
+      margin-top: var(--space-1);
+      display: block;
+    }
+
+    .hero__stat-divider {
+      width: 1px;
+      background: rgba(255,255,255,0.10);
+      align-self: stretch;
+      margin: 0 var(--space-2);
+    }
+
+    /* ─── PROGRAMME PROGRESS STRIP ─── */
+    .prog-strip {
+      position: relative;
+      z-index: 5;
+      background: var(--white);
+      border-bottom: 1px solid var(--grey-100);
+      box-shadow: var(--shadow-sm);
+      padding: var(--space-5) var(--space-10);
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+    }
+
+    .prog-strip__label {
+      font-size: var(--scale-xs);
+      font-weight: 700;
+      letter-spacing: var(--tracking-caps);
+      text-transform: uppercase;
+      color: var(--text-muted);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .prog-strip__bar-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .prog-strip__meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .prog-strip__title {
+      font-size: var(--scale-sm);
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .prog-strip__pct {
+      font-family: var(--font-mono);
+      font-size: var(--scale-sm);
+      font-weight: 700;
+      color: var(--teal);
+    }
+
+    .prog-strip__bar {
+      height: 6px;
+      background: var(--grey-100);
+      border-radius: var(--radius-pill);
+      overflow: hidden;
+    }
+
+    .prog-strip__fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--teal) 0%, var(--teal-mid) 60%, var(--amber) 100%);
+      border-radius: var(--radius-pill);
+      transition: width 700ms cubic-bezier(0.4, 0, 0.2, 1);
+      width: 0%;
+    }
+
+    .prog-strip__modules {
+      display: flex;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .prog-pip {
+      width: 20px;
+      height: 20px;
+      border-radius: var(--radius-sm);
+      background: var(--grey-100);
+      border: 1.5px solid var(--grey-200);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--grey-400);
+      transition: all var(--transition-base);
+      cursor: default;
+    }
+
+    .prog-pip.complete {
+      background: var(--color-success-light);
+      border-color: var(--color-success);
+      color: var(--color-success);
+    }
+
+    .prog-pip.active {
+      background: var(--teal-faint);
+      border-color: var(--teal);
+      color: var(--teal);
+    }
+
+    /* ─── MAIN CONTENT AREA ─── */
+    .page-main {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: var(--space-12) var(--space-8) var(--space-20);
+    }
+
+    /* ─── SECTION HEADER ─── */
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--space-6);
+      margin-bottom: var(--space-8);
+    }
+
+    .section-header__left {}
+
+    .section-header__eyebrow {
+      font-size: var(--scale-xs);
+      font-weight: 700;
+      letter-spacing: var(--tracking-caps);
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: var(--space-2);
+    }
+
+    .section-header__title {
+      font-family: var(--font-display);
+      font-size: var(--scale-3xl);
+      color: var(--text-primary);
+      letter-spacing: var(--tracking-tight);
+      line-height: var(--leading-tight);
+    }
+
+    .section-header__sub {
+      font-size: var(--scale-base);
+      color: var(--text-muted);
+      margin-top: var(--space-2);
+      max-width: 52ch;
+      line-height: var(--leading-relaxed);
+    }
+
+    .section-header__right {
+      flex-shrink: 0;
+    }
+
+    /* ─── PHASE DIVIDER ─── */
+    .phase-divider {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      margin: var(--space-10) 0 var(--space-6);
+    }
+
+    .phase-divider:first-of-type {
+      margin-top: 0;
+    }
+
+    .phase-divider__pill {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      background: var(--navy);
+      color: var(--white);
+      border-radius: var(--radius-pill);
+      padding: 4px 14px 4px 10px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(31,56,100,0.25);
+    }
+
+    .phase-divider__num {
+      font-family: var(--font-mono);
+      font-size: var(--scale-xs);
+      font-weight: 700;
+      color: var(--teal-light);
+      background: rgba(255,255,255,0.10);
+      border-radius: var(--radius-sm);
+      padding: 1px 6px;
+    }
+
+    .phase-divider__name {
+      font-size: var(--scale-xs);
+      font-weight: 600;
+      letter-spacing: var(--tracking-wide);
+      text-transform: uppercase;
+    }
+
+    .phase-divider__line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--grey-200), transparent);
+    }
+
+    .phase-divider__count {
+      font-size: var(--scale-xs);
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    /* ─── MODULE GRID ─── */
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: var(--space-5);
+    }
+
+    /* ─── MODULE CARD ─── */
+    .module-card {
+      background: var(--white);
+      border: 1px solid var(--grey-100);
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      transition:
+        transform var(--transition-base),
+        box-shadow var(--transition-base),
+        border-color var(--transition-base);
+      position: relative;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      animation: cardReveal 500ms ease both;
+    }
+
+    .module-card:hover:not(.module-card--locked) {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-xl);
+      border-color: var(--grey-200);
+    }
+
+    .module-card--locked {
+      cursor: not-allowed;
+      opacity: 0.62;
+      filter: grayscale(0.3);
+    }
+
+    .module-card--locked:hover {
+      transform: none;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .module-card--complete {
+      border-color: rgba(26,122,74,0.25);
+    }
+
+    .module-card--complete:hover {
+      border-color: var(--color-success);
+    }
+
+    .module-card--active {
+      border-color: rgba(31,122,140,0.35);
+      box-shadow: 0 0 0 3px rgba(31,122,140,0.08), var(--shadow-md);
+    }
+
+    .module-card--active:hover {
+      border-color: var(--teal);
+    }
+
+    /* Card top stripe */
+    .module-card__stripe {
+      height: 5px;
+      background: linear-gradient(90deg, var(--teal) 0%, var(--teal-mid) 100%);
+      flex-shrink: 0;
+    }
+
+    .module-card--locked .module-card__stripe {
+      background: var(--grey-200);
+    }
+
+    .module-card--complete .module-card__stripe {
+      background: linear-gradient(90deg, var(--color-success) 0%, #2AA860 100%);
+    }
+
+    /* Card header row */
+    .module-card__header {
+      padding: var(--space-5) var(--space-5) 0;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-3);
+    }
+
+    .module-card__icon-wrap {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-xl);
+      background: var(--teal-faint);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background var(--transition-base), transform var(--transition-spring);
+    }
+
+    .module-card:hover:not(.module-card--locked) .module-card__icon-wrap {
+      background: var(--teal);
+      transform: scale(1.06) rotate(-3deg);
+    }
+
+    .module-card--complete .module-card__icon-wrap {
+      background: var(--color-success-light);
+    }
+
+    .module-card:hover.module-card--complete .module-card__icon-wrap {
+      background: var(--color-success);
+    }
+
+    .module-card--locked .module-card__icon-wrap {
+      background: var(--grey-100);
+    }
+
+    .module-card__icon {
+      font-size: 1.5rem;
+      line-height: 1;
+      transition: filter var(--transition-base);
+    }
+
+    .module-card--locked .module-card__icon {
+      filter: grayscale(1);
+      opacity: 0.5;
+    }
+
+    .module-card__status {
+      flex-shrink: 0;
+    }
+
+    /* Card body */
+    .module-card__body {
+      padding: var(--space-4) var(--space-5) var(--space-5);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .module-card__code {
+      font-family: var(--font-mono);
+      font-size: var(--scale-xs);
+      font-weight: 600;
+      color: var(--teal);
+      letter-spacing: var(--tracking-wide);
+      margin-bottom: var(--space-2);
+      transition: color var(--transition-base);
+    }
+
+    .module-card--locked .module-card__code {
+      color: var(--text-muted);
+    }
+
+    .module-card--complete .module-card__code {
+      color: var(--color-success);
+    }
+
+    .module-card__title {
+      font-family: var(--font-display);
+      font-size: var(--scale-xl);
+      line-height: var(--leading-snug);
+      letter-spacing: var(--tracking-snug);
+      color: var(--text-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .module-card__desc {
+      font-size: var(--scale-sm);
+      color: var(--text-muted);
+      line-height: var(--leading-relaxed);
+      flex: 1;
+      margin-bottom: var(--space-4);
+    }
+
+    /* Card meta row */
+    .module-card__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2) var(--space-4);
+      padding-top: var(--space-4);
+      border-top: 1px solid var(--grey-100);
+    }
+
+    .module-card__meta-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      font-size: var(--scale-xs);
+      color: var(--text-muted);
+    }
+
+    .module-card__meta-icon {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      opacity: 0.6;
+    }
+
+    /* Card CTA row */
+    .module-card__cta {
+      padding: 0 var(--space-5) var(--space-5);
+    }
+
+    .module-card__btn {
+      width: 100%;
+      padding: 0.65rem;
+      border-radius: var(--radius-lg);
+      border: none;
+      font-family: var(--font-body);
+      font-size: var(--scale-sm);
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      transition: all var(--transition-base);
+      letter-spacing: 0.01em;
+    }
+
+    .module-card__btn--start {
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-mid) 100%);
+      color: var(--white);
+      box-shadow: 0 2px 10px rgba(31,122,140,0.30);
+    }
+
+    .module-card__btn--start:hover {
+      background: linear-gradient(135deg, var(--teal-deep) 0%, var(--teal) 100%);
+      box-shadow: var(--shadow-teal);
+      transform: translateY(-1px);
+    }
+
+    .module-card__btn--review {
+      background: var(--color-success-light);
+      color: var(--color-success);
+      border: 2px solid rgba(26,122,74,0.25);
+    }
+
+    .module-card__btn--review:hover {
+      background: var(--color-success);
+      color: var(--white);
+      border-color: var(--color-success);
+    }
+
+    .module-card__btn--locked {
+      background: var(--grey-100);
+      color: var(--grey-400);
+      cursor: not-allowed;
+    }
+
+    /* Lock overlay badge */
+    .module-card__lock-badge {
+      display: none;
+      align-items: center;
+      gap: var(--space-1);
+      background: rgba(0,0,0,0.55);
+      color: rgba(255,255,255,0.80);
+      font-size: var(--scale-2xs);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-radius: var(--radius-pill);
+      padding: 3px 8px;
+    }
+
+    .module-card--locked .module-card__lock-badge {
+      display: inline-flex;
+    }
+
+    /* Required prereq note */
+    .module-card__prereq {
+      display: none;
+      font-size: var(--scale-2xs);
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: var(--space-2);
+    }
+
+    .module-card--locked .module-card__prereq {
+      display: block;
+    }
+
+    /* ─── CAPSTONE CARD (B10, spans full width in last row) ─── */
+    .module-card--capstone {
+      background: linear-gradient(148deg, var(--navy-deep) 0%, var(--navy) 50%, #1a4a6e 100%);
+      border-color: rgba(255,255,255,0.08);
+      color: var(--white);
+    }
+
+    .module-card--capstone .module-card__stripe {
+      background: linear-gradient(90deg, var(--amber) 0%, var(--amber-mid) 100%);
+    }
+
+    .module-card--capstone .module-card__code { color: var(--teal-light); }
+    .module-card--capstone .module-card__title { color: var(--white); }
+    .module-card--capstone .module-card__desc  { color: rgba(255,255,255,0.58); }
+    .module-card--capstone .module-card__meta  { border-top-color: rgba(255,255,255,0.10); }
+    .module-card--capstone .module-card__meta-item { color: rgba(255,255,255,0.45); }
+    .module-card--capstone .module-card__icon-wrap {
+      background: rgba(31,122,140,0.25);
+    }
+    .module-card--capstone:hover:not(.module-card--locked) .module-card__icon-wrap {
+      background: var(--teal);
+    }
+
+    .module-card--capstone .module-card__btn--start {
+      background: linear-gradient(135deg, var(--amber) 0%, var(--amber-mid) 100%);
+      box-shadow: 0 2px 10px rgba(198,89,17,0.40);
+    }
+
+    .module-card--capstone .module-card__btn--start:hover {
+      background: linear-gradient(135deg, var(--amber-deep) 0%, var(--amber) 100%);
+      box-shadow: var(--shadow-amber);
+    }
+
+    .module-card--capstone.module-card--locked {
+      opacity: 0.55;
+    }
+
+    /* ─── PROGRAMME OVERVIEW PANEL ─── */
+    .overview-panel {
+      background: var(--white);
+      border: 1px solid var(--grey-100);
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      margin-bottom: var(--space-12);
+    }
+
+    .overview-panel__header {
+      background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 100%);
+      padding: var(--space-6) var(--space-8);
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+    }
+
+    .overview-panel__icon {
+      width: 52px;
+      height: 52px;
+      background: rgba(255,255,255,0.12);
+      border-radius: var(--radius-xl);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+
+    .overview-panel__heading {
+      font-family: var(--font-display);
+      font-size: var(--scale-2xl);
+      color: var(--white);
+      letter-spacing: var(--tracking-snug);
+    }
+
+    .overview-panel__sub {
+      font-size: var(--scale-sm);
+      color: rgba(255,255,255,0.55);
+      margin-top: 2px;
+    }
+
+    .overview-panel__body {
+      padding: var(--space-8);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-8);
+    }
+
+    .overview-feature {
+      display: flex;
+      gap: var(--space-4);
+      align-items: flex-start;
+    }
+
+    .overview-feature__icon {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .overview-feature__icon--teal  { background: var(--teal-faint); }
+    .overview-feature__icon--amber { background: var(--amber-faint); }
+    .overview-feature__icon--navy  { background: var(--navy-faint); }
+    .overview-feature__icon--green { background: var(--color-success-light); }
+
+    .overview-feature__title {
+      font-size: var(--scale-base);
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: var(--space-1);
+    }
+
+    .overview-feature__text {
+      font-size: var(--scale-sm);
+      color: var(--text-muted);
+      line-height: var(--leading-relaxed);
+      max-width: 38ch;
+    }
+
+    /* ─── FOOTER ─── */
+    .site-footer {
+      background: var(--navy-deep);
+      padding: var(--space-10) var(--space-10) var(--space-8);
+      margin-top: var(--space-8);
+    }
+
+    .site-footer__inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-8);
+      flex-wrap: wrap;
+    }
+
+    .site-footer__brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .site-footer__mark {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-mid) 100%);
+      border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: var(--white);
+    }
+
+    .site-footer__name {
+      font-family: var(--font-display);
+      font-size: var(--scale-base);
+      color: var(--white);
+      line-height: 1.1;
+    }
+
+    .site-footer__sub {
+      font-size: var(--scale-2xs);
+      color: rgba(255,255,255,0.30);
+      letter-spacing: var(--tracking-wide);
+      text-transform: uppercase;
+    }
+
+    .site-footer__doc {
+      font-family: var(--font-mono);
+      font-size: var(--scale-xs);
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.02em;
+    }
+
+    .site-footer__links {
+      display: flex;
+      gap: var(--space-6);
+    }
+
+    .site-footer__link {
+      font-size: var(--scale-sm);
+      color: rgba(255,255,255,0.40);
+      text-decoration: none;
+      transition: color var(--transition-base);
+    }
+
+    .site-footer__link:hover {
+      color: rgba(255,255,255,0.75);
+    }
+
+    .site-footer__divider {
+      height: 1px;
+      background: rgba(255,255,255,0.06);
+      max-width: 1160px;
+      margin: var(--space-6) auto var(--space-5);
+    }
+
+    .site-footer__bottom {
+      max-width: 1160px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+
+    .site-footer__copy {
+      font-size: var(--scale-xs);
+      color: rgba(255,255,255,0.22);
+    }
+
+    .site-footer__storage-note {
+      font-size: var(--scale-2xs);
+      color: rgba(255,255,255,0.18);
+      font-family: var(--font-mono);
+    }
+
+    /* ─── TOAST ─── */
+    .toast-container {
+      position: fixed;
+      bottom: var(--space-6);
+      right: var(--space-6);
+      z-index: var(--z-toast);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      pointer-events: none;
+    }
+
+    .toast {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      padding: var(--space-4) var(--space-5);
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-xl);
+      border: 1px solid var(--grey-100);
+      min-width: 280px;
+      max-width: 360px;
+      pointer-events: all;
+      animation: toastInBottom 280ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .toast--success { border-left: 4px solid var(--color-success); }
+    .toast--info    { border-left: 4px solid var(--teal); }
+    .toast--warning { border-left: 4px solid var(--amber); }
+
+    .toast__icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+    .toast__title { font-size: var(--scale-sm); font-weight: 700; color: var(--text-primary); }
+    .toast__msg   { font-size: var(--scale-xs); color: var(--text-muted); margin-top: 2px; }
+
+    /* ─── RESET BUTTON (dev/debug tool) ─── */
+    .reset-btn {
+      background: transparent;
+      border: 1px dashed rgba(255,255,255,0.20);
+      border-radius: var(--radius-md);
+      padding: 4px 12px;
+      font-size: var(--scale-xs);
+      color: rgba(255,255,255,0.30);
+      cursor: pointer;
+      font-family: var(--font-mono);
+      transition: all var(--transition-base);
+    }
+
+    .reset-btn:hover {
+      border-color: rgba(255,255,255,0.45);
+      color: rgba(255,255,255,0.60);
+    }
+
+    /* ─── SCROLL-REVEAL ANIMATION ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 500ms ease, transform 500ms ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── KEYFRAMES ─── */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes cardReveal {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes toastInBottom {
+      from { opacity: 0; transform: translateY(12px) scale(0.96); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.4; }
+    }
+
+    @keyframes shimmerSweep {
+      0%   { background-position: -400% center; }
+      100% { background-position: 400% center; }
+    }
+
+    /* Shimmer on active module card */
+    .module-card--active::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        120deg,
+        transparent 30%,
+        rgba(31,122,140,0.04) 50%,
+        transparent 70%
+      );
+      background-size: 200% 100%;
+      animation: shimmerSweep 3s infinite;
+      border-radius: inherit;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      .site-header { padding: var(--space-4) var(--space-6); }
+      .prog-strip  { padding: var(--space-4) var(--space-6); }
+      .prog-strip__modules { display: none; }
+      .page-main   { padding: var(--space-8) var(--space-5) var(--space-16); }
+    }
+
+    @media (max-width: 760px) {
+      .site-header__nav { display: none; }
+      .hero__inner { padding: var(--space-12) var(--space-5) var(--space-16); }
+      .hero__headline { font-size: clamp(1.9rem, 8vw, 2.8rem); }
+      .hero__tagline  { font-size: var(--scale-base); }
+      .hero__stats    { gap: var(--space-5); }
+      .learner-panel  { padding: var(--space-5) var(--space-5); }
+      .section-header { flex-direction: column; align-items: flex-start; gap: var(--space-3); }
+      .overview-panel__body { grid-template-columns: 1fr; gap: var(--space-5); }
+      .overview-panel__header { flex-direction: column; align-items: flex-start; }
+      .site-footer__inner { flex-direction: column; gap: var(--space-5); }
+      .site-footer__links { flex-wrap: wrap; gap: var(--space-4); }
+      .module-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 500px) {
+      .hero__stats { flex-direction: column; gap: var(--space-4); }
+      .hero__stat-divider { display: none; }
+      .prog-strip { flex-wrap: wrap; gap: var(--space-3); }
+    }
+
+  
+  /* ──────────────────────────────────────────────────────────
+     AUTH SCREEN — login / register
+     ────────────────────────────────────────────────────────── */
+  #auth-screen {
+    position: fixed; inset: 0;
+    background: linear-gradient(135deg, #0F1F38 0%, #1F3864 40%, #1A5060 100%);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 2000;
+  }
+  #auth-screen::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 50%, rgba(31,122,140,0.30) 0%, transparent 60%),
+      radial-gradient(ellipse at 70% 20%, rgba(198,89,17,0.20) 0%, transparent 50%);
+  }
+  .auth-card {
+    background: rgba(255,255,255,0.97); border-radius: 20px;
+    padding: 44px 40px; width: 400px; max-width: 95vw;
+    position: relative; z-index: 1;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.40);
+  }
+  .auth-logo { text-align: center; margin-bottom: 24px; }
+  .auth-logo-ring {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #1F3864; color: #fff; border-radius: 20px;
+    padding: 5px 16px; font-size: 12px; font-weight: 700;
+    margin-bottom: 14px; font-family: 'Calibri', sans-serif;
+  }
+  .auth-logo h1 {
+    font-family: 'Georgia', serif; font-size: 26px;
+    font-weight: 900; color: #1F3864;
+  }
+  .auth-logo h1 span { color: #C65911; }
+  .auth-logo p { font-size: 12px; color: #7A8AA8; margin-top: 4px; }
+  .auth-tabs {
+    display: flex; gap: 0; margin-bottom: 24px;
+    border-radius: 10px; overflow: hidden;
+    border: 1.5px solid #DDE4EC;
+  }
+  .auth-tab {
+    flex: 1; padding: 10px; text-align: center;
+    font-size: 13px; font-weight: 600; cursor: pointer;
+    background: #EBF2F7; color: #7A8AA8;
+    transition: all 0.2s; border: none;
+    font-family: 'DM Sans', 'Calibri', sans-serif;
+  }
+  .auth-tab.active { background: #1F3864; color: #fff; }
+  .auth-tab:first-child { border-radius: 8px 0 0 8px; }
+  .auth-tab:last-child  { border-radius: 0 8px 8px 0; }
+  .auth-panel { display: none; }
+  .auth-panel.active { display: block; }
+  .auth-form label {
+    display: block; font-size: 12px; font-weight: 600;
+    color: #4A5870; margin-bottom: 5px;
+    font-family: 'DM Sans', 'Calibri', sans-serif;
+  }
+  .auth-form input {
+    width: 100%; padding: 12px 14px;
+    border: 1.5px solid #DDE4EC; border-radius: 10px;
+    font-size: 14px; font-family: 'DM Sans', 'Calibri', sans-serif;
+    margin-bottom: 16px; outline: none;
+    transition: border-color 0.2s; color: #1A2540;
+    box-sizing: border-box;
+  }
+  .auth-form input:focus { border-color: #1F7A8C; }
+  .auth-btn {
+    width: 100%; padding: 14px;
+    background: #1F3864; color: #fff; border: none;
+    border-radius: 10px; font-size: 15px; font-weight: 700;
+    cursor: pointer; font-family: 'DM Sans', 'Calibri', sans-serif;
+    transition: all 0.2s;
+  }
+  .auth-btn:hover { background: #1F7A8C; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(31,122,140,0.35); }
+  .auth-btn:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
+  .auth-err {
+    background: #FDECEA; color: #C00000; border-radius: 8px;
+    padding: 10px 14px; font-size: 13px; margin-bottom: 14px;
+    display: none; font-weight: 500;
+  }
+  .pw-strength { height: 4px; border-radius: 2px; margin-top: -10px; margin-bottom: 16px; background: #DDE4EC; overflow: hidden; }
+  .pw-strength-bar { height: 100%; border-radius: 2px; width: 0; transition: all 0.3s; }
+  .auth-success {
+    text-align: center; padding: 16px 8px;
+  }
+  .auth-success .rs-icon { font-size: 44px; margin-bottom: 10px; }
+  .auth-success h3 { font-size: 16px; font-weight: 700; color: #1F3864; margin-bottom: 8px; }
+  .auth-success p { font-size: 13px; color: #7A8AA8; line-height: 1.6; margin-bottom: 5px; }
+  .auth-success .rs-note {
+    background: #EBF2F7; border-radius: 8px;
+    padding: 12px 14px; font-size: 12px; color: #1F3864;
+    font-weight: 500; margin-top: 12px; line-height: 1.6;
+  }
+  .auth-badges {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin-top: 20px; justify-content: center;
+  }
+  .auth-badge {
+    background: #EBF2F7; color: #1F3864;
+    font-size: 10px; padding: 4px 10px;
+    border-radius: 10px; font-weight: 600;
+  }
+  /* Watermark overlay */
+  #wm-overlay {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none; z-index: 9999; overflow: hidden;
+    display: none;
+  }
+  .wm-tile {
+    position: absolute; font-size: 13px; font-weight: 600;
+    color: rgba(31,56,100,0.07); white-space: nowrap;
+    transform: rotate(-35deg);
+    font-family: 'DM Mono', 'Calibri Mono', monospace;
+    letter-spacing: 0.5px;
+  }
+  /* IP protection */
+  body { -webkit-user-select: none; -moz-user-select: none; user-select: none; }
+  textarea, input { -webkit-user-select: text !important; user-select: text !important; }
+
+  </style>
+
+  <!-- Supabase JS Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+</head>
+
+<body>
+<!-- Watermark overlay (shown after login) -->
+<div id="wm-overlay"></div>
+
+<!-- ============================================================
+     AUTH SCREEN — Login / Register
+     ============================================================ -->
+<div id="auth-screen">
+  <div class="auth-card">
+    <div class="auth-logo">
+      <div class="auth-logo-ring">🎓 SAP Controls &amp; Compliance</div>
+      <h1>TIB <span>Systems</span></h1>
+      <p>10-Module Practitioner Training Programme</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="authSwitchTab('login')">Sign In</button>
+      <button class="auth-tab" onclick="authSwitchTab('register')">New Student</button>
+    </div>
+
+    <!-- LOGIN PANEL -->
+    <div id="panel-login" class="auth-panel active">
+      <div id="login-err" class="auth-err">Invalid email or password. Please try again.</div>
+      <div class="auth-form">
+        <label>Email Address</label>
+        <input type="email" id="auth-email" placeholder="you@example.com" autocomplete="email" onkeydown="if(event.key==='Enter')doLogin()">
+        <label>Password</label>
+        <input type="password" id="auth-pass" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+        <button class="auth-btn" id="login-btn" onclick="doLogin()">Access Programme</button>
+      </div>
+    </div>
+
+    <!-- REGISTER PANEL -->
+    <div id="panel-register" class="auth-panel">
+      <div id="reg-err" class="auth-err">Registration failed. Please try again.</div>
+      <div id="reg-form">
+        <div class="auth-form">
+          <label>Email Address</label>
+          <input type="email" id="reg-email" placeholder="you@example.com" autocomplete="email">
+          <label>Password</label>
+          <input type="password" id="reg-pass" placeholder="Minimum 8 characters" autocomplete="new-password" oninput="checkPwStrength(this.value)">
+          <div class="pw-strength"><div class="pw-strength-bar" id="pw-bar"></div></div>
+          <label>Confirm Password</label>
+          <input type="password" id="reg-pass2" placeholder="Repeat your password" autocomplete="new-password">
+          <button class="auth-btn" id="reg-btn" onclick="doRegister()">Create Account</button>
+        </div>
+      </div>
+      <div id="reg-success" class="auth-success" style="display:none">
+        <div class="rs-icon">✅</div>
+        <h3>Account Created</h3>
+        <p>Your account has been created successfully.</p>
+        <p>Your course access will be activated by the TIB team within <strong>2 hours</strong>.</p>
+        <div class="rs-note">
+          📧 Check your email for a confirmation link.<br>
+          Once your access is activated, return here and sign in.<br><br>
+          Questions? Email <strong>academy@tib-systems.com</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="auth-badges">
+      <span class="auth-badge">10 Modules</span>
+      <span class="auth-badge">B1 → B10</span>
+      <span class="auth-badge">AI Tutor</span>
+      <span class="auth-badge">Certificate</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MAIN APP (hidden until authenticated)
+     ============================================================ -->
+<div id="main-app" style="display:none">
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero" id="top">
+
+  <!-- Atmospheric rings -->
+  <div class="hero__rings">
+    <div class="hero__ring hero__ring--1"></div>
+    <div class="hero__ring hero__ring--2"></div>
+    <div class="hero__ring hero__ring--3"></div>
+  </div>
+
+  <!-- Grid overlay -->
+  <div class="hero__grid"></div>
+
+  <!-- ── SITE HEADER ──────────────────────────────────────── -->
+  <header class="site-header">
+    <a href="#top" class="site-header__logo">
+      <div class="site-header__mark">T</div>
+      <div class="site-header__brand">
+        <span class="site-header__name">TIB Systems</span>
+        <span class="site-header__sub">Powered by TIB Systems Inc.</span>
+      </div>
+    </a>
+
+    <nav class="site-header__nav" aria-label="Site navigation">
+      <a href="#programme" class="site-header__nav-link">Programme</a>
+      <a href="#modules"   class="site-header__nav-link">Modules</a>
+      <a href="#overview"  class="site-header__nav-link">Overview</a>
+    </nav>
+  </header>
+
+  <!-- ── HERO INNER ──────────────────────────────────────── -->
+  <div class="hero__inner">
+
+    <!-- Eyebrow pill -->
+    <div class="hero__eyebrow">
+      <div class="hero__eyebrow-dot"></div>
+      <span class="hero__eyebrow-text">10-Module SAP Practitioner Programme</span>
+    </div>
+
+    <!-- Headline -->
+    <h1 class="hero__headline">
+      SAP Controls &amp;<br>
+      <span class="hero__headline-accent">Compliance</span> Training
+    </h1>
+
+    <!-- Tagline -->
+    <p class="hero__tagline">From Controls Concepts to Confident Practitioner</p>
+
+    <!-- Learner name panel -->
+    <div class="learner-panel" id="learner-panel">
+
+      <!-- Input state (default) -->
+      <span class="learner-panel__label" id="name-input-label">Enter your name to personalise your learning journey</span>
+      <div class="learner-panel__row" id="name-input-row">
+        <input
+          type="text"
+          class="learner-panel__input"
+          id="learner-name-input"
+          placeholder="Your full name…"
+          maxlength="60"
+          autocomplete="name"
+          onkeydown="handleNameKey(event)"
+        />
+        <button class="learner-panel__btn" onclick="saveLearnerName()">
+          Start Learning →
+        </button>
+      </div>
+
+      <!-- Greeting state (after name saved) -->
+      <div class="learner-panel__greeting" id="learner-greeting">
+        <div class="learner-panel__avatar" id="learner-avatar">—</div>
+        <div class="learner-panel__greeting-text">
+          <div class="learner-panel__greeting-name" id="learner-greeting-name">Welcome back</div>
+          <div class="learner-panel__greeting-sub" id="learner-greeting-sub">Continue your programme below</div>
+        </div>
+        <button class="learner-panel__change-btn" onclick="resetLearnerName()">Change</button>
+      </div>
+
+    </div><!-- /learner-panel -->
+
+    <!-- Stats -->
+    <div class="hero__stats">
+      <div class="hero__stat">
+        <span class="hero__stat-value">10</span>
+        <span class="hero__stat-label">Modules</span>
+      </div>
+      <div class="hero__stat-divider"></div>
+      <div class="hero__stat">
+        <span class="hero__stat-value">7.5</span>
+        <span class="hero__stat-label">Hours CPD</span>
+      </div>
+      <div class="hero__stat-divider"></div>
+      <div class="hero__stat">
+        <span class="hero__stat-value">50</span>
+        <span class="hero__stat-label">Quiz Questions</span>
+      </div>
+      <div class="hero__stat-divider"></div>
+      <div class="hero__stat">
+        <span class="hero__stat-value">AI</span>
+        <span class="hero__stat-label">Tutor Included</span>
+      </div>
+    </div>
+
+  </div><!-- /hero__inner -->
+</section><!-- /hero -->
+
+<!-- ============================================================
+     PROGRAMME PROGRESS STRIP
+     ============================================================ -->
+<div class="prog-strip" id="programme">
+  <span class="prog-strip__label">Your Progress</span>
+
+  <div class="prog-strip__bar-wrap">
+    <div class="prog-strip__meta">
+      <span class="prog-strip__title">SAP Controls &amp; Compliance Training Programme</span>
+      <span class="prog-strip__pct" id="strip-pct">0%</span>
+    </div>
+    <div class="prog-strip__bar">
+      <div class="prog-strip__fill" id="strip-fill"></div>
+    </div>
+  </div>
+
+  <!-- 10 pip indicators -->
+  <div class="prog-strip__modules" id="pip-row">
+    <!-- Rendered by JS -->
+  </div>
+</div>
+
+<!-- ============================================================
+     MAIN CONTENT
+     ============================================================ -->
+<main class="page-main" id="modules">
+
+  <!-- ── SECTION HEADER ────────────────────────────────── -->
+  <div class="section-header reveal">
+    <div class="section-header__left">
+      <div class="section-header__eyebrow">KABO-TRN-CTL-WPB-001</div>
+      <h2 class="section-header__title">Programme Modules</h2>
+      <p class="section-header__sub">
+        Complete each module in sequence. Every module unlocks upon
+        completion of the previous one. Your progress is saved automatically.
+      </p>
+    </div>
+    <div class="section-header__right">
+      <div id="overall-badge" style="text-align: right;">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MODULE CARDS ──────────────────────────────────── -->
+  <div id="module-cards-root">
+    <!-- Phase and card groups rendered by JS -->
+  </div>
+
+  <!-- ── PROGRAMME OVERVIEW ────────────────────────────── -->
+  <div class="overview-panel reveal" id="overview" style="margin-top: var(--space-16);">
+    <div class="overview-panel__header">
+      <div class="overview-panel__icon">🎓</div>
+      <div>
+        <div class="overview-panel__heading">About This Programme</div>
+        <div class="overview-panel__sub">SAP Controls &amp; Compliance Training — TIB Systems Inc.</div>
+      </div>
+    </div>
+    <div class="overview-panel__body">
+
+      <div class="overview-feature">
+        <div class="overview-feature__icon overview-feature__icon--teal">🏗</div>
+        <div>
+          <div class="overview-feature__title">Structured Learning Path</div>
+          <div class="overview-feature__text">
+            Ten sequenced modules build from foundational risk and control theory
+            through to advanced testing methodology and AI integration. No prior
+            SAP GRC experience required for B1–B4.
+          </div>
+        </div>
+      </div>
+
+      <div class="overview-feature">
+        <div class="overview-feature__icon overview-feature__icon--amber">🤖</div>
+        <div>
+          <div class="overview-feature__title">AI Tutor in Every Module</div>
+          <div class="overview-feature__text">
+            Each module includes a live AI Tutor powered by Claude (Anthropic).
+            Ask questions in plain English, request scenario walkthroughs, or
+            challenge your understanding with follow-up questions.
+          </div>
+        </div>
+      </div>
+
+      <div class="overview-feature">
+        <div class="overview-feature__icon overview-feature__icon--navy">📋</div>
+        <div>
+          <div class="overview-feature__title">Exam-Quality Assessments</div>
+          <div class="overview-feature__text">
+            Five knowledge-check questions per module — written at practitioner
+            level, with detailed explanations. Passing score of 60% or above
+            unlocks the next module and records completion.
+          </div>
+        </div>
+      </div>
+
+      <div class="overview-feature">
+        <div class="overview-feature__icon overview-feature__icon--green">✅</div>
+        <div>
+          <div class="overview-feature__title">Progress Saved Locally</div>
+          <div class="overview-feature__text">
+            All completion data is stored in your browser via localStorage.
+            No login or server required. Works fully offline after first load
+            (Google Fonts excepted). Use the same browser and device to resume.
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /overview-panel__body -->
+  </div><!-- /overview-panel -->
+
+</main>
+
+<!-- ============================================================
+     SITE FOOTER
+     ============================================================ -->
+<section style="background:var(--navy,#1F3864);padding:40px 24px;text-align:center;" id="toolkit">
+  <div style="max-width:760px;margin:0 auto;display:flex;align-items:center;gap:24px;background:rgba(255,255,255,0.06);border:1px solid rgba(31,122,140,0.30);border-radius:16px;padding:24px 32px;text-align:left;">
+    <div style="font-size:2.2rem;flex-shrink:0;">📋</div>
+    <div style="flex:1;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#5BB5C6;margin-bottom:4px;">Free Resource</div>
+      <div style="font-size:18px;font-weight:700;color:#FFFFFF;margin-bottom:4px;">Practitioner Toolkit — Five Reference Cards</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.45);">KABO-TRN-CTL-TLK-001 · Quick-Start Checklist · RACM Version Log · Evidence Spec · Stakeholder Map · FD Review Framework</div>
+    </div>
+    <a href="KABO-TRN-CTL-TLK-001-Practitioner-Toolkit.pdf" download style="display:inline-flex;align-items:center;gap:8px;background:#1F7A8C;color:#FFFFFF;font-size:14px;font-weight:700;padding:12px 22px;border-radius:10px;text-decoration:none;white-space:nowrap;flex-shrink:0;">⬇ Download PDF</a>
+  </div>
+</section>
+<footer class="site-footer">
+  <div class="site-footer__inner">
+
+    <div class="site-footer__brand">
+      <div class="site-footer__mark">T</div>
+      <div>
+        <div class="site-footer__name">TIB Systems Inc.</div>
+        <div class="site-footer__sub">tib-systems.com</div>
+      </div>
+    </div>
+
+    <div class="site-footer__doc">KABO-TRN-CTL-WPB-001 · WP-02 · index.html</div>
+
+    <nav class="site-footer__links">
+      <a href="#top"       class="site-footer__link">Home</a>
+      <a href="#modules"   class="site-footer__link">Modules</a>
+      <a href="#overview"  class="site-footer__link">Overview</a>
+      <a href="mailto:academy@tib-systems.com" class="site-footer__link">academy@tib-systems.com</a>
+      <a href="KABO-TRN-CTL-TLK-001-Practitioner-Toolkit.pdf" download class="site-footer__link" style="color:var(--teal-light,#5BB5C6);">⬇ Practitioner Toolkit PDF</a>
+    </nav>
+
+  </div>
+
+  <div class="site-footer__divider"></div>
+
+  <div class="site-footer__bottom">
+    <span class="site-footer__copy">
+      © TIB Systems Inc. SAP Controls &amp; Compliance Training Programme. All rights reserved.
+    </span>
+    <div style="display:flex; align-items:center; gap: var(--space-5);">
+      <span class="site-footer__storage-note">Progress stored in localStorage</span>
+      <button class="reset-btn" onclick="confirmResetProgress()">⚠ Reset Progress</button>
+    </div>
+  </div>
+</footer>
+
+<!-- Toast container -->
+<div class="toast-container" id="toast-container"></div>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+/* ─────────────────────────────────────────────────────────────
+   PROGRAMME DATA — 10 modules
+   ───────────────────────────────────────────────────────────── */
+const MODULES = [
+  {
+    code:     'B1',
+    title:    'Risk Types',
+    phase:    'Foundation',
+    phaseNum: 1,
+    icon:     '⚡',
+    desc:     'Classify the four primary risk categories in SAP environments. Understand inherent vs. residual risk and how controls bridge the gap between the two.',
+    duration: '45 min',
+    sections: '4 sections',
+    file:     'b1.html',
+  },
+  {
+    code:     'B2',
+    title:    'Control Types',
+    phase:    'Foundation',
+    phaseNum: 1,
+    icon:     '🛡',
+    desc:     'Distinguish preventive, detective, corrective, and directive controls. Map SAP-specific controls to each type with worked examples from key process areas.',
+    duration: '45 min',
+    sections: '4 sections',
+    file:     'module-shell.html',
+  },
+  {
+    code:     'B3',
+    title:    'Control Nature',
+    phase:    'Foundation',
+    phaseNum: 1,
+    icon:     '🔬',
+    desc:     'Understand automated vs. manual controls, IT general controls vs. application controls, and how control nature affects audit reliance and testing scope.',
+    duration: '50 min',
+    sections: '4 sections',
+    file:     'b3.html',
+  },
+  {
+    code:     'B4',
+    title:    'Why Controls Matter',
+    phase:    'Foundation',
+    phaseNum: 1,
+    icon:     '🏛',
+    desc:     'Connect the controls framework to real financial and regulatory consequences. Explore SOX, IFRS audit requirements, and the business case for GRC investment.',
+    duration: '40 min',
+    sections: '3 sections',
+    file:     'b4.html',
+  },
+  {
+    code:     'B5',
+    title:    'Engagement Types',
+    phase:    'Applied',
+    phaseNum: 2,
+    icon:     '🤝',
+    desc:     'Navigate the landscape of SAP controls engagements: implementation QA/QC, operating effectiveness testing, design effectiveness review, and remediation support.',
+    duration: '50 min',
+    sections: '4 sections',
+    file:     'b5.html',
+  },
+  {
+    code:     'B6',
+    title:    'S/4HANA Lifecycle',
+    phase:    'Applied',
+    phaseNum: 2,
+    icon:     '🔄',
+    desc:     'Map the five-phase SAP S/4HANA implementation lifecycle and identify where controls audit activities fit within Blueprint, Build, Test, Cut-Over, and Go-Live.',
+    duration: '55 min',
+    sections: '5 sections',
+    file:     'b6.html',
+  },
+  {
+    code:     'B7',
+    title:    'Reading FD Documents',
+    phase:    'Applied',
+    phaseNum: 2,
+    icon:     '📄',
+    desc:     'Develop proficiency in reading and critically evaluating Functional Design documents. Identify control gaps during design review before build begins.',
+    duration: '60 min',
+    sections: '5 sections',
+    file:     'b7.html',
+  },
+  {
+    code:     'B8',
+    title:    'Testing Phase',
+    phase:    'Advanced',
+    phaseNum: 3,
+    icon:     '🧪',
+    desc:     'Execute structured controls testing: design effectiveness, operating effectiveness, and walkthrough procedures. Document findings to Big 4 standard.',
+    duration: '65 min',
+    sections: '5 sections',
+    file:     'b8.html',
+  },
+  {
+    code:     'B9',
+    title:    'AI in Controls',
+    phase:    'Advanced',
+    phaseNum: 3,
+    icon:     '🤖',
+    desc:     'Explore how AI and machine learning are reshaping GRC: continuous monitoring, anomaly detection, NLP-driven policy review, and the future of the controls auditor role.',
+    duration: '50 min',
+    sections: '4 sections',
+    file:     'b9.html',
+  },
+  {
+    code:     'B10',
+    title:    'Practitioner Capstone',
+    phase:    'Capstone',
+    phaseNum: 4,
+    icon:     '🏆',
+    desc:     'Integrate all programme learning in a simulated client engagement scenario. Apply risk classification, control design, FD review, testing, and AI techniques end-to-end.',
+    duration: '75 min',
+    sections: '6 sections',
+    file:     'b10.html',
+    isCapstone: true,
+  },
+];
+
+/* Phase definitions */
+const PHASES = [
+  { num: 1, name: 'Foundation',  codes: ['B1','B2','B3','B4'] },
+  { num: 2, name: 'Applied',     codes: ['B5','B6','B7'] },
+  { num: 3, name: 'Advanced',    codes: ['B8','B9'] },
+  { num: 4, name: 'Capstone',    codes: ['B10'] },
+];
+
+/* ─────────────────────────────────────────────────────────────
+   localStorage HELPERS
+   ───────────────────────────────────────────────────────────── */
+const LS_NAME_KEY = 'tib_learner_name';
+
+function isComplete (code) {
+  return localStorage.getItem(`tib_module_${code}_complete`) === 'true';
+}
+
+function isUnlocked (code) {
+  const idx = MODULES.findIndex(m => m.code === code);
+  if (idx === 0) return true;                         // B1 always unlocked
+  return isComplete(MODULES[idx - 1].code);           // previous must be complete
+}
+
+function getActiveModule () {
+  // The first module that is unlocked but not yet complete
+  return MODULES.find(m => isUnlocked(m.code) && !isComplete(m.code));
+}
+
+function completedCount () {
+  return MODULES.filter(m => isComplete(m.code)).length;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   LEARNER NAME
+   ───────────────────────────────────────────────────────────── */
+function loadLearnerName () {
+  const name = localStorage.getItem(LS_NAME_KEY) || '';
+  if (name) {
+    showGreeting(name);
+  }
+}
+
+function saveLearnerName () {
+  const input = document.getElementById('learner-name-input');
+  const name  = input.value.trim();
+  if (!name) {
+    input.focus();
+    input.style.borderColor = 'rgba(198,89,17,0.70)';
+    setTimeout(() => { input.style.borderColor = ''; }, 1500);
+    return;
+  }
+  localStorage.setItem(LS_NAME_KEY, name);
+  showGreeting(name);
+  showToast('success', `Welcome, ${name.split(' ')[0]}!`, 'Your progress is saved to this browser.', 4000);
+}
+
+function showGreeting (name) {
+  const initial = name.trim().charAt(0).toUpperCase();
+  document.getElementById('name-input-label').style.display  = 'none';
+  document.getElementById('name-input-row').style.display    = 'none';
+
+  document.getElementById('learner-avatar').textContent      = initial;
+  document.getElementById('learner-greeting-name').textContent = `Welcome back, ${name.split(' ')[0]}`;
+
+  const active = getActiveModule();
+  const sub    = active
+    ? `Next up: Module ${active.code} — ${active.title}`
+    : completedCount() === 10
+      ? '🏆 Programme complete — congratulations!'
+      : 'Continue your programme below';
+  document.getElementById('learner-greeting-sub').textContent = sub;
+
+  document.getElementById('learner-greeting').classList.add('visible');
+}
+
+function resetLearnerName () {
+  document.getElementById('name-input-label').style.display  = '';
+  document.getElementById('name-input-row').style.display    = '';
+  document.getElementById('learner-greeting').classList.remove('visible');
+  document.getElementById('learner-name-input').value        = '';
+  localStorage.removeItem(LS_NAME_KEY);
+}
+
+function handleNameKey (e) {
+  if (e.key === 'Enter') saveLearnerName();
+}
+
+/* ─────────────────────────────────────────────────────────────
+   PROGRESS STRIP
+   ───────────────────────────────────────────────────────────── */
+function renderProgressStrip () {
+  const done   = completedCount();
+  const pct    = Math.round((done / 10) * 100);
+  const active = getActiveModule();
+
+  document.getElementById('strip-fill').style.width = pct + '%';
+  document.getElementById('strip-pct').textContent  = pct + '%';
+
+  // Pips
+  const pipRow = document.getElementById('pip-row');
+  pipRow.innerHTML = '';
+  MODULES.forEach(m => {
+    const pip = document.createElement('div');
+    pip.className = 'prog-pip';
+    pip.textContent = m.code.replace('B', '');
+    pip.title = m.title;
+    if (isComplete(m.code))                                    pip.classList.add('complete');
+    else if (active && active.code === m.code)                 pip.classList.add('active');
+    pipRow.appendChild(pip);
+  });
+}
+
+/* ─────────────────────────────────────────────────────────────
+   OVERALL BADGE
+   ───────────────────────────────────────────────────────────── */
+function renderOverallBadge () {
+  const done = completedCount();
+  const el   = document.getElementById('overall-badge');
+  if (!el) return;
+
+  if (done === 10) {
+    el.innerHTML = `<span class="badge badge--success" style="font-size: var(--scale-sm); padding: 6px 14px;">🏆 Programme Complete</span>`;
+  } else if (done > 0) {
+    el.innerHTML = `
+      <div style="font-family: var(--font-mono); font-size: var(--scale-3xl); color: var(--teal); line-height:1; text-align:right;">${done}<span style="font-size:var(--scale-lg); color: var(--text-muted);">/10</span></div>
+      <div style="font-size: var(--scale-2xs); color: var(--text-muted); letter-spacing: var(--tracking-caps); text-transform:uppercase; margin-top: 4px;">Modules Complete</div>
+    `;
+  } else {
+    el.innerHTML = `<span class="badge badge--teal" style="font-size: var(--scale-sm); padding: 6px 14px;">📖 Begin with B1</span>`;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   MODULE CARDS RENDER
+   ───────────────────────────────────────────────────────────── */
+function renderModuleCards () {
+  const root = document.getElementById('module-cards-root');
+  root.innerHTML = '';
+
+  const active = getActiveModule();
+
+  PHASES.forEach((phase, pi) => {
+    // Phase divider
+    const divider = document.createElement('div');
+    divider.className = 'phase-divider reveal';
+    divider.style.animationDelay = (pi * 60) + 'ms';
+    const modulesInPhase = phase.codes.map(c => MODULES.find(m => m.code === c));
+    const completedInPhase = modulesInPhase.filter(m => isComplete(m.code)).length;
+    divider.innerHTML = `
+      <div class="phase-divider__pill">
+        <span class="phase-divider__num">Phase ${phase.num}</span>
+        <span class="phase-divider__name">${phase.name}</span>
+      </div>
+      <div class="phase-divider__line"></div>
+      <div class="phase-divider__count">${completedInPhase} / ${phase.codes.length} complete</div>
+    `;
+    root.appendChild(divider);
+
+    // Grid
+    const grid = document.createElement('div');
+    grid.className = 'module-grid';
+    root.appendChild(grid);
+
+    phase.codes.forEach((code, ci) => {
+      const mod      = MODULES.find(m => m.code === code);
+      const complete = isComplete(code);
+      const unlocked = isUnlocked(code);
+      const isCurrent = active && active.code === code;
+
+      // Determine state classes
+      let stateClass = '';
+      if (complete)       stateClass = 'module-card--complete';
+      else if (isCurrent) stateClass = 'module-card--active';
+      else if (!unlocked) stateClass = 'module-card--locked';
+
+      const capstoneClass = mod.isCapstone ? 'module-card--capstone' : '';
+
+      // Determine status badge
+      let statusBadge = '';
+      if (complete) {
+        statusBadge = `<span class="badge badge--success">✓ Complete</span>`;
+      } else if (isCurrent) {
+        statusBadge = `<span class="badge badge--teal">In Progress</span>`;
+      } else if (!unlocked) {
+        statusBadge = `<div class="module-card__lock-badge">🔒 Locked</div>`;
+      } else {
+        statusBadge = `<span class="badge badge--neutral">Not Started</span>`;
+      }
+
+      // Determine CTA button
+      let btnClass = '', btnText = '', btnIcon = '';
+      if (complete) {
+        btnClass = 'module-card__btn--review';
+        btnText  = 'Review Module';
+        btnIcon  = '↩';
+      } else if (!unlocked) {
+        btnClass = 'module-card__btn--locked';
+        btnText  = 'Locked';
+        btnIcon  = '🔒';
+      } else {
+        btnClass = 'module-card__btn--start';
+        btnText  = isCurrent ? 'Continue Module' : 'Start Module';
+        btnIcon  = '→';
+      }
+
+      // Prereq note
+      const prevCode = MODULES[MODULES.findIndex(m => m.code === code) - 1]?.code;
+      const prereqText = prevCode
+        ? `Complete Module ${prevCode} to unlock`
+        : '';
+
+      // Card
+      const card = document.createElement('div');
+      card.className = `module-card ${stateClass} ${capstoneClass}`;
+      card.style.animationDelay = ((pi * 4 + ci) * 55 + 100) + 'ms';
+
+      if (unlocked || complete) {
+        card.onclick = () => navigateToModule(mod.file, mod.code);
+      } else {
+        card.onclick = () => showLockedToast(mod, prevCode);
+      }
+
+      card.innerHTML = `
+        <div class="module-card__stripe"></div>
+
+        <div class="module-card__header">
+          <div class="module-card__icon-wrap">
+            <span class="module-card__icon">${mod.icon}</span>
+          </div>
+          <div class="module-card__status">${statusBadge}</div>
+        </div>
+
+        <div class="module-card__body">
+          <div class="module-card__code">${mod.code} · ${mod.phase}</div>
+          <div class="module-card__title">${mod.title}</div>
+          <div class="module-card__desc">${mod.desc}</div>
+
+          <div class="module-card__meta">
+            <div class="module-card__meta-item">
+              <svg class="module-card__meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              ${mod.duration}
+            </div>
+            <div class="module-card__meta-item">
+              <svg class="module-card__meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+              ${mod.sections}
+            </div>
+            <div class="module-card__meta-item">
+              <svg class="module-card__meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              5 questions
+            </div>
+          </div>
+        </div>
+
+        <div class="module-card__cta">
+          <button class="module-card__btn ${btnClass}" onclick="event.stopPropagation(); ${unlocked || complete ? `navigateToModule('${mod.file}','${mod.code}')` : `showLockedToast({title:'${mod.title}',code:'${mod.code}'},'${prevCode}')`}">
+            ${btnIcon} ${btnText}
+          </button>
+          ${!unlocked ? `<div class="module-card__prereq">${prereqText}</div>` : ''}
+        </div>
+      `;
+
+      grid.appendChild(card);
+    });
+  });
+
+  // Trigger scroll reveal
+  setTimeout(initReveal, 80);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   NAVIGATION
+   ───────────────────────────────────────────────────────────── */
+function navigateToModule (file, code) {
+  // In a fully deployed LMS, navigate directly.
+  // Check if the file exists by checking for a known deployed path.
+  // For standalone / dev, show a friendly toast.
+  if (file && file !== 'module-undefined.html') {
+    window.location.href = file;
+  }
+}
+
+function showLockedToast (mod, prevCode) {
+  const prevTitle = prevCode ? MODULES.find(m => m.code === prevCode)?.title : '';
+  showToast(
+    'warning',
+    `Module ${mod.code} is Locked`,
+    prevCode
+      ? `Complete Module ${prevCode} (${prevTitle}) first to unlock this module.`
+      : 'This module is not yet available.',
+    4500
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────
+   FULL PAGE RENDER
+   ───────────────────────────────────────────────────────────── */
+function renderAll () {
+  renderProgressStrip();
+  renderOverallBadge();
+  renderModuleCards();
+  loadLearnerName();
+}
+
+/* ─────────────────────────────────────────────────────────────
+   RESET PROGRESS (dev/debug)
+   ───────────────────────────────────────────────────────────── */
+function confirmResetProgress () {
+  const confirmed = window.confirm(
+    'Reset all module completion progress?\n\nThis will clear all tib_module_*_complete keys from localStorage. Your learner name will be kept.\n\nThis cannot be undone.'
+  );
+  if (!confirmed) return;
+
+  MODULES.forEach(m => {
+    localStorage.removeItem(`tib_module_${m.code}_complete`);
+  });
+
+  showToast('info', 'Progress Reset', 'All module completion data has been cleared.', 4000);
+  setTimeout(renderAll, 300);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   TOAST SYSTEM
+   ───────────────────────────────────────────────────────────── */
+function showToast (type, title, message, duration = 4000) {
+  const icons = { success: '✅', info: 'ℹ️', warning: '⚠️', error: '❌' };
+  const container = document.getElementById('toast-container');
+  const el = document.createElement('div');
+  el.className = `toast toast--${type}`;
+  el.innerHTML = `
+    <div class="toast__icon">${icons[type] || 'ℹ️'}</div>
+    <div>
+      <div class="toast__title">${title}</div>
+      <div class="toast__msg">${message}</div>
+    </div>`;
+  container.appendChild(el);
+  setTimeout(() => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(8px)';
+    el.style.transition = 'all 300ms ease';
+    setTimeout(() => el.remove(), 300);
+  }, duration);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   SCROLL REVEAL
+   ───────────────────────────────────────────────────────────── */
+function initReveal () {
+  const items = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) {
+    items.forEach(el => el.classList.add('visible'));
+    return;
+  }
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  items.forEach(el => obs.observe(el));
+}
+
+/* ─────────────────────────────────────────────────────────────
+   STORAGE EVENT — sync across tabs
+   ───────────────────────────────────────────────────────────── */
+window.addEventListener('storage', (e) => {
+  if (e.key && e.key.startsWith('tib_module_')) {
+    renderAll();
+  }
+});
+
+/* ─────────────────────────────────────────────────────────────
+   BOOT
+   ───────────────────────────────────────────────────────────── */
+// renderAll is called by _loginSuccess() after Supabase auth
+// document.addEventListener('DOMContentLoaded', renderAll); -- removed: auth gates this now
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   SUPABASE AUTH — TIB SAP Controls & Compliance Training Programme
+   Course code: controls_theory
+   ═══════════════════════════════════════════════════════════════════════ */
+
+const SUPABASE_URL  = 'https://blfgwysgekfqhcafofhe.supabase.co';
+const SUPABASE_ANON = 'sb_publishable_ThLetpd4hj49fjce-kXoFA_v4ghwIqV';
+const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+const VALID_COURSES = ['controls_theory', 'alumni'];
+
+let _currentUser = null;  // { id, email, name, avatar, role, course }
+
+/* ── Tab switcher ── */
+function authSwitchTab(tab) {
+  document.querySelectorAll('.auth-tab').forEach((t, i) => {
+    t.classList.toggle('active', (i === 0 && tab === 'login') || (i === 1 && tab === 'register'));
+  });
+  document.getElementById('panel-login').classList.toggle('active', tab === 'login');
+  document.getElementById('panel-register').classList.toggle('active', tab === 'register');
+  document.getElementById('login-err').style.display = 'none';
+  document.getElementById('reg-err').style.display   = 'none';
+}
+
+/* ── Password strength ── */
+function checkPwStrength(val) {
+  const bar = document.getElementById('pw-bar');
+  if (!bar) return;
+  const s = [val.length >= 8, /[A-Z]/.test(val), /[0-9]/.test(val), /[^A-Za-z0-9]/.test(val)].filter(Boolean).length;
+  bar.style.width      = ['0%','25%','50%','75%','100%'][s];
+  bar.style.background = ['','#E53935','#FB8C00','#43A047','#1B7A3F'][s];
+}
+
+/* ── Login ── */
+async function doLogin() {
+  const email  = document.getElementById('auth-email').value.trim().toLowerCase();
+  const pass   = document.getElementById('auth-pass').value;
+  const errEl  = document.getElementById('login-err');
+  const btn    = document.getElementById('login-btn');
+  errEl.style.display = 'none';
+  btn.textContent = 'Signing in…'; btn.disabled = true;
+
+  try {
+    // 1. Authenticate
+    const { data: authData, error: authErr } = await _supabase.auth.signInWithPassword({ email, password: pass });
+    if (authErr || !authData.user) throw new Error('invalid_credentials');
+
+    // 2. Check enrollment
+    const { data: enrData } = await _supabase
+      .from('enrollments')
+      .select('course, expiry_date, is_active')
+      .eq('user_id', authData.user.id)
+      .eq('is_active', true)
+      .in('course', VALID_COURSES)
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    if (!enrData) {
+      await _supabase.auth.signOut();
+      errEl.textContent = 'No active enrolment found for this programme. Contact academy@tib-systems.com';
+      errEl.style.display = 'block';
+      btn.textContent = 'Access Programme'; btn.disabled = false;
+      return;
+    }
+
+    if (enrData.expiry_date && new Date(enrData.expiry_date) < new Date()) {
+      await _supabase.auth.signOut();
+      errEl.textContent = 'Your programme access has expired. Please renew at tib-systems.com';
+      errEl.style.display = 'block';
+      btn.textContent = 'Access Programme'; btn.disabled = false;
+      return;
+    }
+
+    // 3. Load profile
+    const { data: profData } = await _supabase
+      .from('user_profiles')
+      .select('full_name, avatar, role')
+      .eq('user_id', authData.user.id)
+      .maybeSingle();
+
+    _loginSuccess(authData.user, enrData, profData);
+
+  } catch(err) {
+    errEl.textContent = err.message === 'invalid_credentials'
+      ? 'Invalid email or password. Please try again.'
+      : 'Unable to connect. Please check your internet connection.';
+    errEl.style.display = 'block';
+    btn.textContent = 'Access Programme'; btn.disabled = false;
+  }
+}
+
+/* ── Register ── */
+async function doRegister() {
+  const email  = document.getElementById('reg-email').value.trim().toLowerCase();
+  const pass   = document.getElementById('reg-pass').value;
+  const pass2  = document.getElementById('reg-pass2').value;
+  const errEl  = document.getElementById('reg-err');
+  const btn    = document.getElementById('reg-btn');
+  errEl.style.display = 'none';
+
+  if (!email || !email.includes('@')) {
+    errEl.textContent = 'Please enter a valid email address.';
+    errEl.style.display = 'block'; return;
+  }
+  if (pass.length < 8) {
+    errEl.textContent = 'Password must be at least 8 characters.';
+    errEl.style.display = 'block'; return;
+  }
+  if (pass !== pass2) {
+    errEl.textContent = 'Passwords do not match.';
+    errEl.style.display = 'block'; return;
+  }
+
+  btn.textContent = 'Creating account…'; btn.disabled = true;
+
+  try {
+    const { data, error } = await _supabase.auth.signUp({ email, password: pass });
+    if (error) throw error;
+    document.getElementById('reg-form').style.display    = 'none';
+    document.getElementById('reg-success').style.display = 'block';
+  } catch(err) {
+    let msg = 'Registration failed. Please try again.';
+    if (err.message && err.message.toLowerCase().includes('already registered'))
+      msg = 'This email is already registered. Use the Sign In tab.';
+    errEl.textContent = msg;
+    errEl.style.display = 'block';
+    btn.textContent = 'Create Account'; btn.disabled = false;
+  }
+}
+
+/* ── Logout ── */
+async function doLogout() {
+  await _supabase.auth.signOut();
+  _currentUser = null;
+  document.getElementById('auth-screen').style.display = 'flex';
+  document.getElementById('main-app').style.display    = 'none';
+  document.getElementById('wm-overlay').style.display  = 'none';
+  document.getElementById('wm-overlay').innerHTML      = '';
+  document.getElementById('auth-email').value = '';
+  document.getElementById('auth-pass').value  = '';
+  document.getElementById('login-err').style.display   = 'none';
+  const btn = document.getElementById('login-btn');
+  btn.textContent = 'Access Programme'; btn.disabled = false;
+}
+
+/* ── Shared post-login wiring ── */
+function _loginSuccess(user, enrData, profData) {
+  const email  = user.email;
+  const name   = profData?.full_name || email.split('@')[0];
+  const avatar = profData?.avatar    || name.slice(0,2).toUpperCase();
+  const role   = profData?.role      || 'trainee';
+
+  _currentUser = { id: user.id, email, name, avatar, role, course: enrData.course };
+
+  // Pre-populate learner name from Supabase profile (avoids manual entry)
+  if (name && name !== email.split('@')[0].replace(/[._]/g,' ')) {
+    localStorage.setItem(LS_NAME_KEY, name);
+  }
+
+  // Hide auth screen, show app
+  document.getElementById('auth-screen').style.display = 'none';
+  document.getElementById('main-app').style.display    = 'block';
+
+  // Watermark
+  _buildWatermark(email);
+
+  // Add logout button to header if not already present
+  _injectLogoutBtn();
+
+  // Render the main app
+  renderAll();
+}
+
+/* ── Session restore on page load ── */
+window.addEventListener('load', async () => {
+  const { data: { session } } = await _supabase.auth.getSession();
+  if (!session) return;
+
+  const { data: enrData } = await _supabase
+    .from('enrollments')
+    .select('course, expiry_date, is_active')
+    .eq('user_id', session.user.id)
+    .eq('is_active', true)
+    .in('course', VALID_COURSES)
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (!enrData || (enrData.expiry_date && new Date(enrData.expiry_date) < new Date())) return;
+
+  const { data: profData } = await _supabase
+    .from('user_profiles')
+    .select('full_name, avatar, role')
+    .eq('user_id', session.user.id)
+    .maybeSingle();
+
+  _loginSuccess(session.user, enrData, profData);
+});
+
+/* ── Watermark ── */
+function _buildWatermark(email) {
+  const overlay = document.getElementById('wm-overlay');
+  overlay.style.display = 'block';
+  overlay.innerHTML = '';
+  const text = `TIB SYSTEMS  ·  ${email}  ·  CONFIDENTIAL`;
+  const tileW = 420, tileH = 120;
+  const cols = Math.ceil(window.innerWidth  / tileW) + 2;
+  const rows = Math.ceil(window.innerHeight / tileH) + 4;
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      const el = document.createElement('div');
+      el.className = 'wm-tile';
+      el.textContent = text;
+      el.style.left = (c * tileW - 60) + 'px';
+      el.style.top  = (r * tileH - 40) + 'px';
+      overlay.appendChild(el);
+    }
+  }
+}
+window.addEventListener('resize', () => {
+  if (_currentUser) _buildWatermark(_currentUser.email);
+});
+
+/* ── IP protection ── */
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+  const blocked =
+    (e.ctrlKey && ['c','u','s','p','a'].includes(e.key.toLowerCase())) ||
+    (e.metaKey && ['c','u','s','p','a'].includes(e.key.toLowerCase())) ||
+    e.key === 'F12' ||
+    (e.ctrlKey && e.shiftKey && ['i','j','c'].includes(e.key.toLowerCase()));
+  if (blocked) e.preventDefault();
+});
+
+/* ── Inject logout into the site header ── */
+function _injectLogoutBtn() {
+  if (document.getElementById('tib-logout-btn')) return;
+  const header = document.querySelector('.site-header__actions') || document.querySelector('.lms-header__actions') || null;
+  const btn = document.createElement('button');
+  btn.id = 'tib-logout-btn';
+  btn.textContent = 'Logout';
+  btn.style.cssText = 'background:none;border:1px solid rgba(255,255,255,0.20);color:rgba(255,255,255,0.65);font-size:11px;padding:5px 12px;border-radius:6px;cursor:pointer;font-family:inherit;transition:all 0.2s;margin-left:8px;';
+  btn.onmouseenter = () => { btn.style.borderColor='#C65911'; btn.style.color='#C65911'; };
+  btn.onmouseleave = () => { btn.style.borderColor='rgba(255,255,255,0.20)'; btn.style.color='rgba(255,255,255,0.65)'; };
+  btn.onclick = doLogout;
+  if (header) {
+    header.appendChild(btn);
+  } else {
+    // Fallback: append to body as floating button
+    btn.style.cssText += 'position:fixed;top:12px;right:16px;z-index:1999;background:rgba(31,56,100,0.85);';
+    document.body.appendChild(btn);
+  }
+}
+
+</script>
+
+</div><!-- /main-app -->
+</body>
+</html>
